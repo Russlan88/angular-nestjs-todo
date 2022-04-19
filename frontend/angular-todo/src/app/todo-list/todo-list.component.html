@@ -1,1 +1,49 @@
-<p>todo-list works!</p>
+<nz-layout>
+  <nz-content>
+    <div class="inner-content">
+      <div nz-row>
+        <div nz-col nzSpan="14" nzOffset="5">
+          <h1>Angular Nestjs todos</h1>
+          <app-todo-form [refresh]="this.loadAll"></app-todo-form>
+          <nz-list nzItemLayout="horizontal">
+            <nz-list-item *ngFor="let todo of todos$ | async">
+              <ng-container>
+                <nz-tag [nzColor]="'cyan'">
+                  {{ todo.title }}
+                </nz-tag>
+                <ul nz-list-item-actions>
+                  <nz-list-item-action>
+                    <nz-switch
+                      [(ngModel)]="todo.complete"
+                      (click)="changeStatus(todo)"
+                      nz-tooltip
+                      nz-tooltipTitle=""
+                      Change
+                      Todo
+                      Status
+                    >
+                    </nz-switch>
+                  </nz-list-item-action>
+                  <nz-list-item-action>
+                    <button
+                      nz-button
+                      nzType="primary"
+                      nzPopconfirmPlacement="top"
+                      nzDanger
+                      nz-popconfirm
+                      nzPopconfirmTitle="Are you sure you want to delete"
+                      (nzOnConfirm)="deleteToDo(todo)"
+                      (nzOnCancel)="cancel()"
+                    >
+                      x
+                    </button>
+                  </nz-list-item-action>
+                </ul>
+              </ng-container>
+            </nz-list-item>
+          </nz-list>
+        </div>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>
